@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>落枫🍁Start Page</title>
+    <link rel="shortcut icon" href="img/x.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- <svg style="position: absolute; width: 0; height: 0">
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color: #50d8ff; stop-opacity: 1" />
+          <stop offset="100%" style="stop-color: #fffacd; stop-opacity: 1" />
+        </linearGradient>
+      </defs>
+    </svg> -->
+  </head>
+  <body>
+    <h1 class="title" id="title">落枫起始页</h1>
+    <h1 class="clock" id="clock" style="display: none">0:0:0</h1>
+    <div class="search-container">
+      <div class="search-bar">
+        <button class="engine-toggle" id="engineToggle">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M10 2a8 8 0 016.32 12.91l5.39 5.38a1 1 0 01-1.42 1.42l-5.38-5.39A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z" /></svg>
+        </button>
+        <input type="text" class="search-input" id="searchInput" placeholder="开启你的旅程..." autocomplete="off" />
+        <button class="search-button" onclick="performSearch()">🔍</button>
+      </div>
+      <div class="engine-menu" id="engineMenu">
+        <div class="engine-option" data-engine="bing">bing</div>
+        <div class="engine-option" data-engine="bilibili">Bilibili</div>
+        <div class="engine-option" data-engine="zhihu">Zhihu</div>
+        <div class="engine-option" data-engine="google">Google</div>
+        <div class="engine-option" data-engine="stackoverflow">Stack Overflow</div>
+        <div class="engine-option" data-engine="github">GitHub</div>
+        <div class="engine-option" data-engine="youtube">YouTube</div>
+        <div class="engine-option" data-engine="wikipedia">Wikipedia</div>
+        <div class="engine-option" data-engine="wolframalpha">Wolfram Alpha</div>
+        <div class="engine-option" data-engine="spotify">Spotify</div>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="window.open('https://spacex.com')"><img src="img/spacex.svg" height="30px" width="30px" alt="SpaceX" /></button>
+      <button class="nav-button" onclick="window.open('https://github.com')"><img src="img/github.svg" height="25px" width="25px" alt="GitHub" /></button>
+      <button class="nav-button" onclick="window.open('https://chat.deepseek.com')"><img src="img/deepseek.svg" height="30px" width="30px" alt="DeepSeek" /></button>
+      <button class="nav-button" onclick="window.open('https://dash.cloudflare.com')"><img src="img/cloudflare.svg" height="30px" width="30px" alt="Cloudflare" /></button>
+      <button class="nav-button" onclick="window.open('https://dh.hwd.pw')"><img src="img/x.png" height="30px" width="30px" alt="Navigation" /></button>
+      <button class="nav-button" onclick="window.open('https://grok.com')"><img src="img/grok2.svg" height="30px" width="30px" alt="Grok" /></button>
+      <button class="nav-button" onclick="window.open('https://weread.qq.com')"><img src="img/weread.svg" height="20px" width="20px" alt="WeRead" /></button>
+      <button class="nav-button" onclick="window.open('https://www.nasa.gov')"><img src="img/Nasa.svg" height="30px" width="30px" alt="NASA" /></button>
+    </div>
+    <div class="background-overlay" id="backgroundOverlay"></div>
+    <div class="quote" id="quote">加载中...</div>
+    <div class="footer"><a href="https://hwd.pw">© 落枫🍁贰〇贰伍</a></div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
