@@ -1,0 +1,766 @@
+/* 重置所有元素的盒模型为 border-box，避免边框和内边距影响尺寸 */
+* {
+  box-sizing: border-box;
+}
+
+/* 页面整体样式 */
+body {
+  font-family: "楷体", Georgia, sans-serif, Merriweather;
+  background: url("img/bgxifumn.png") no-repeat center/cover fixed;
+  margin: 0;
+  min-height: 100vh; /* 改为 min-height，确保内容超出时不会被裁剪 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15vh;
+}
+
+/* 背景叠加层，用于聚焦时的动态效果 */
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  background: url("img/bgxifumn.png") no-repeat center/cover;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* 时钟样式 */
+.clock {
+  font-family:Georgia;
+  font-size: 68px;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 40px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.6), 0 0 4px rgba(173, 216, 230, 0.5);
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out 0.6s forwards;
+  transition: all 0.3s ease;
+}
+
+.clock:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 8px rgba(173, 216, 230, 0.7);
+  font-size: 72px;
+}
+
+/* 标题样式 */
+.title {
+  font-size: 68px;
+  font-weight: 300;
+  color: #f0f8ff;
+  margin-bottom: 40px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  animation: fadeOut 0.6s ease-out forwards;
+}
+.title::before {
+  content: "🍁";
+  margin-right: 10px;
+}
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 淡出动画 */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* 搜索容器 */
+.search-container {
+  position: relative;
+  margin-bottom: 80px;
+}
+
+/* 搜索栏布局 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInUp 0.7s ease-out 0.9s forwards;
+}
+
+/* 搜索引擎切换按钮 */
+.engine-toggle {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.2), rgba(60, 40, 80, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  border-radius: 25px 0 0 25px;
+  color: #f0f8ff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.engine-toggle:hover {
+  background: linear-gradient(135deg, rgba(50, 90, 140, 0.4), rgba(90, 70, 110, 0.4));
+  border-color: rgba(173, 216, 230, 0.4);
+  box-shadow: 0 0 12px rgba(173, 216, 230, 0.3);
+}
+
+.engine-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 搜索输入框 */
+.search-input {
+  width: 500px;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #f0f8ff;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.2), rgba(60, 40, 80, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  background: linear-gradient(135deg, rgba(40, 80, 120, 0.3), rgba(80, 60, 100, 0.3));
+  border-color: rgba(173, 216, 230, 0.4);
+  box-shadow: 0 0 12px rgba(173, 216, 230, 0.3);
+}
+
+/* 搜索按钮 */
+.search-button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-radius: 0 25px 25px 0;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.2), rgba(60, 40, 80, 0.2));
+  color: #f0f8ff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background: linear-gradient(135deg, rgba(50, 90, 140, 0.4), rgba(90, 70, 110, 0.4));
+  border-color: rgba(173, 216, 230, 0.4);
+  box-shadow: 0 0 12px rgba(173, 216, 230, 0.3);
+}
+
+.search-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.search-button:hover svg {
+  stroke: url(#grad);
+}
+
+/* 搜索引擎下拉菜单 */
+.engine-menu {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 140px;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.9), rgba(60, 40, 80, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  display: none;
+  z-index: 10;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.engine-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.engine-menu::-webkit-scrollbar-track {
+  background: rgba(30, 60, 100, 0.3);
+  border-radius: 3px;
+}
+
+.engine-menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.5), rgba(218, 165, 32, 0.5));
+  border-radius: 3px;
+}
+
+.engine-menu::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.8), rgba(218, 165, 32, 0.8));
+}
+
+.engine-option {
+  padding: 8px 16px;
+  color: #f0f8ff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.engine-option:hover {
+  background: rgba(218, 165, 32, 0.2);
+  color: #fffacd;
+}
+
+/* 导航按钮容器 */
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  max-width: 1024px; /* 适配悬停时的 1006px */
+  padding: 0 20px; /* 左右缓冲 */
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeInUp 0.7s ease-out 1.2s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 导航按钮样式 */
+.nav-button {
+  width: 105px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.15), rgba(60, 40, 80, 0.15));
+  color: #e6e6fa;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+  width: 110px;
+  height: 46px;
+  background: linear-gradient(135deg, rgba(50, 90, 140, 0.35), rgba(90, 70, 110, 0.35));
+  border-color: rgba(218, 165, 32, 0.3);
+  box-shadow: 0 6px 20px rgba(218, 165, 32, 0.2);
+  color: #fffacd;
+}
+
+/* 一言引用样式 */
+.quote {
+  position: fixed;
+  bottom: 40px; /* 增加距离，避免重叠 */
+  width: 100%;
+  color: rgba(240, 248, 255, 0.8);
+  font-size: 14px;
+  text-align: center;
+  padding: 0 20px;
+  opacity: 0;
+  animation: fadeIn 0.7s ease-out 1.5s forwards;
+  transition: all 0.3s ease;
+}
+
+.quote:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 8px rgba(173, 216, 230, 0.7);
+  color: #fff;
+}
+
+/* 响应式设计 - 平板及现代手机 (768px 以下) */
+@media (max-width: 768px) {
+  body {
+    padding-top: 10vh; /* 约 90px 在 XR 上 */
+  }
+  .clock,
+  .title {
+    font-size: 50px;
+    margin-bottom: 30px;
+  }
+  .search-container {
+    margin-bottom: 60px;
+  }
+  .search-bar {
+    width: 80vw;
+  }
+  .search-input {
+    width: calc(80vw - 100px);
+    height: 46px;
+    font-size: 15px;
+  }
+  .search-button,
+  .engine-toggle {
+    width: 46px;
+    height: 46px;
+    font-size: 16px;
+  }
+  .engine-menu {
+    top: 50px;
+    width: 120px;
+    max-height: 180px;
+  }
+  .nav-button {
+    width: 90px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .nav-button:hover {
+    width: 90px;
+    height: 40px;
+  }
+  .nav-buttons {
+    gap: 16px;
+    max-width: 600px; /* 适配现代手机 */
+  }
+  body,
+  .background-overlay {
+    background-size: cover;
+  }
+
+  .quote {
+    bottom: 35px; /* 稍减小，但保持分隔 */
+    font-size: 13px;
+  }
+  .footer {
+    bottom: 8px;
+    font-size: 11px;
+  }
+}
+
+/* iPhone SE 第一代 (320x568) */
+@media (max-width: 360px) and (max-height: 568px) {
+  body {
+    padding-top: 7vh; /* 约 40px */
+  }
+  .clock,
+  .title {
+    font-size: 42px;
+    margin-bottom: 25px;
+  }
+  .search-container {
+    margin-bottom: 50px;
+  }
+  .search-bar {
+    width: 85vw;
+  }
+  .search-input {
+    width: calc(85vw - 90px);
+    height: 42px;
+    font-size: 14px;
+  }
+  .search-button,
+  .engine-toggle {
+    width: 45px;
+    height: 42px;
+    font-size: 14px;
+  }
+  .engine-menu {
+    top: 47px;
+    width: 120px;
+    max-height: 160px;
+  }
+  .nav-buttons {
+    gap: 11px;
+    max-width: 300px;
+  }
+  .nav-button {
+    width: 85px;
+    height: 38px;
+    font-size: 13px;
+  }
+  .nav-button:hover {
+    width: 85px;
+    height: 38px;
+  }
+  .quote {
+    bottom: 30px;
+    font-size: 12px;
+  }
+  .footer {
+    bottom: 5px;
+    font-size: 10px;
+  }
+}
+
+/* iPhone 4S (320x480) */
+@media (max-width: 320px) and (max-height: 480px) {
+  body {
+    padding-top: 5vh; /* 约 24px */
+  }
+  .clock,
+  .title {
+    font-size: 38px;
+    margin-bottom: 20px;
+  }
+  .search-container {
+    margin-bottom: 40px;
+  }
+  .search-bar {
+    width: 90vw;
+  }
+  .search-input {
+    width: calc(90vw - 80px);
+    height: 40px;
+    font-size: 13px;
+  }
+  .search-button,
+  .engine-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+  .engine-menu {
+    top: 45px;
+    width: 110px;
+    max-height: 150px;
+  }
+  .nav-buttons {
+    gap: 10px;
+    max-width: 300px;
+  }
+  .nav-button {
+    width: 80px;
+    height: 36px;
+    font-size: 12px;
+  }
+  .nav-button:hover {
+    width: 80px;
+    height: 36px;
+  }
+  .quote {
+    bottom: 25px;
+    font-size: 11px;
+  }
+  .footer {
+    bottom: 5px;
+    font-size: 9px;
+  }
+}
+/* 版权信息样式 */
+.footer {
+  position: fixed;
+  bottom: 10px; /* 稍上移，确保与一言有间距 */
+  width: 100%;
+  color: rgba(240, 248, 255, 0.8);
+  font-size: 12px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer a {
+  color: rgba(240, 248, 255, 0.8);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fffacd;
+  text-shadow: 0 0 8px rgba(173, 216, 230, 0.7);
+}
+
+/* 适应 */
+/* 适配电话手表尺寸 (150px - 200px) */
+@media (max-width: 200px) {
+  body {
+    padding-top: 10px; /* 固定顶部间距，避免 vh 不精确 */
+    height: auto; /* 允许内容超出屏幕高度 */
+    overflow-y: auto; /* 支持垂直滚动 */
+    background-size: cover; /* 确保背景适应小屏 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 从顶部开始排列 */
+  }
+
+  .background-overlay {
+    display: none; /* 移除背景叠加层，简化视觉效果 */
+  }
+
+  .clock {
+    font-size: 24px; /* 小而清晰的时钟 */
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.6); /* 简化阴影 */
+    opacity: 1; /* 直接可见，无动画 */
+    animation: none; /* 移除动画 */
+  }
+
+  .clock:hover {
+    font-size: 24px; /* 取消悬停放大 */
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.8); /* 轻微阴影增强 */
+  }
+
+  .title {
+    display: none; /* 移除标题，节省空间 */
+  }
+
+  .search-container {
+    margin: 0 0 15px 0;
+    width: 100%;
+    padding: 0 5px; /* 左右微小内边距 */
+  }
+
+  .search-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    align-items: center;
+    opacity: 1; /* 直接可见，无动画 */
+    animation: none; /* 移除动画 */
+  }
+
+  .engine-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px; /* 圆形按钮 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 60, 100, 0.3);
+    margin-bottom: 5px;
+  }
+
+  .engine-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .engine-toggle:hover {
+    background: rgba(50, 90, 140, 0.5);
+    box-shadow: none; /* 移除阴影，避免占用空间 */
+  }
+
+  .search-input {
+    width: 90%; /* 留出微小边距 */
+    height: 28px;
+    font-size: 12px;
+    padding: 0 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px; /* 单独圆角 */
+    background: rgba(30, 60, 100, 0.3);
+  }
+
+  .search-input:focus {
+    background: rgba(40, 80, 120, 0.4);
+    border-color: rgba(173, 216, 230, 0.5);
+    box-shadow: none; /* 移除阴影 */
+  }
+
+  .search-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 60, 100, 0.3);
+    margin-top: 5px;
+  }
+
+  .search-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .search-button:hover {
+    background: rgba(50, 90, 140, 0.5);
+    box-shadow: none; /* 移除阴影 */
+  }
+
+  .engine-menu {
+    top: 37px;
+    left: 50%;
+    transform: translateX(-50%); /* 居中对齐 */
+    width: 90px;
+    max-height: 120px;
+    font-size: 11px;
+    padding: 5px 0;
+    background: rgba(30, 60, 100, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .engine-option {
+    padding: 5px 10px;
+  }
+
+  .engine-menu::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .nav-buttons {
+    display: none; /* 移除导航按钮 */
+  }
+
+  .quote {
+    display: none; /* 移除一言 */
+  }
+
+  .footer {
+    position: relative; /* 改为相对定位，避免重叠 */
+    margin-top: 10px;
+    font-size: 9px;
+    padding-bottom: 5px;
+  }
+}
+/* 适配大屏显示器 */
+@media (min-width: 2560px){
+  body {
+    padding-top: 20vh; /* 约 400px */
+  }
+
+  .clock,
+  .title {
+    font-size: 100px; /* 适度放大 */
+    margin-bottom: 60px;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.6), 0 0 6px rgba(173, 216, 230, 0.5);
+  }
+
+  .clock:hover {
+    font-size: 104px;
+    text-shadow: 0 0 24px rgba(255, 255, 255, 0.9), 0 0 10px rgba(173, 216, 230, 0.7);
+  }
+
+  .search-container {
+    margin-bottom: 100px;
+  }
+
+  .search-bar {
+    width: 800px; /* 适度加宽 */
+  }
+
+  .search-input {
+    width: 700px;
+    height: 60px;
+    font-size: 20px;
+    padding: 0 25px;
+  }
+
+  .engine-toggle,
+  .search-button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 30px 0 0 30px;
+  }
+
+  .search-button {
+    border-radius: 0 30px 30px 0;
+  }
+
+  .engine-toggle svg,
+  .search-button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .engine-toggle:hover,
+  .search-button:hover {
+    background: linear-gradient(135deg, rgba(50, 90, 140, 0.4), rgba(90, 70, 110, 0.4));
+    box-shadow: 0 0 16px rgba(173, 216, 230, 0.3);
+  }
+
+  .search-input:focus {
+    background: linear-gradient(135deg, rgba(40, 80, 120, 0.3), rgba(80, 60, 100, 0.3));
+    box-shadow: 0 0 16px rgba(173, 216, 230, 0.3);
+  }
+
+  .engine-menu {
+    top: 65px;
+    width: 180px;
+    max-height: 280px;
+    font-size: 16px;
+    padding: 10px 0;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .engine-option {
+    padding: 10px 18px;
+  }
+
+  .nav-buttons {
+    gap: 24px;
+    max-width: 1400px; /* 适度加宽 */
+  }
+
+  .nav-button {
+    width: 130px;
+    height: 52px;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-button:hover {
+    width: 135px;
+    height: 54px;
+    box-shadow: 0 8px 24px rgba(218, 165, 32, 0.25);
+  }
+
+  .quote {
+    bottom: 50px;
+    font-size: 18px;
+  }
+
+  .footer {
+    bottom: 15px;
+    font-size: 14px;
+  }
+}
+@media (min-width: 7680px) {
+  body {
+    padding-top: 30vh;
+  }
+  .clock, .title {
+    font-size: 300px;
+    margin-bottom: 200px;
+  }
+  .search-bar {
+    width: 2000px;
+  }
+  .search-input {
+    width: 1800px;
+    height: 140px;
+    font-size: 48px;
+  }
+  .engine-toggle, .search-button {
+    width: 140px;
+    height: 140px;
+    font-size: 40px;
+  }
+  .nav-buttons {
+    max-width: 4000px;
+    gap: 60px;
+  }
+  .nav-button {
+    width: 300px;
+    height: 120px;
+    font-size: 36px;
+  }
+  .quote {
+    font-size: 40px;
+    bottom: 120px;
+  }
+  .footer {
+    font-size: 28px;
+    bottom: 40px;
+  }
+}
