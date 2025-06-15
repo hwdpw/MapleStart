@@ -7,7 +7,7 @@ const engineToggle = document.getElementById("engineToggle");
 const engineMenu = document.getElementById("engineMenu");
 const body = document.body;
 
-// 当前搜索引擎，默认设置为 "google"
+// 当前搜索引擎，默认设置为 "bing"
 let currentEngine = "bing";
 
 // 搜索引擎列表，用于快捷键切换，顺序与 engineIcons 和 performSearch 保持一致
