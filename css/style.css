@@ -249,7 +249,7 @@ body {
   }
 }
 
-/* 导航按钮样式 */
+/* 导航按钮 */
 .nav-button {
   width: 105px;
   height: 44px;
@@ -273,10 +273,10 @@ body {
   color: #fffacd;
 }
 
-/* 一言引用样式 */
+/* 一言引用 */
 .quote {
   position: fixed;
-  bottom: 40px; /* 增加距离，避免重叠 */
+  bottom: 40px; 
   width: 100%;
   color: rgba(240, 248, 255, 0.8);
   font-size: 14px;
@@ -295,7 +295,7 @@ body {
 /* 响应式设计 - 平板及现代手机 (768px 以下) */
 @media (max-width: 768px) {
   body {
-    padding-top: 10vh; /* 约 90px 在 XR 上 */
+    padding-top: 10vh; 
   }
   .clock,
   .title {
@@ -725,6 +725,7 @@ body {
     font-size: 14px;
   }
 }
+/* 适配超大屏显示器 */
 @media (min-width: 7680px) {
   body {
     padding-top: 30vh;
