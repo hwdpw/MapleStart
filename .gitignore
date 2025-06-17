@@ -6,3 +6,6 @@
 .idea/
 *.swp
 *.swo
+
+# 测试
+/test/
