@@ -8,7 +8,7 @@ body {
   font-family: "楷体", Georgia, sans-serif, Merriweather;
   background: url("img/bgxifumn.png") no-repeat center/cover fixed;
   margin: 0;
-  min-height: 100vh; /* 改为 min-height，确保内容超出时不会被裁剪 */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -231,8 +231,8 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 18px;
-  max-width: 1024px; /* 适配悬停时的 1006px */
-  padding: 0 20px; /* 左右缓冲 */
+  max-width: 1024px;
+  padding: 0 20px;
   margin: 0 auto;
   opacity: 0;
   animation: fadeInUp 0.7s ease-out 1.2s forwards;
@@ -335,7 +335,7 @@ body {
   }
   .nav-buttons {
     gap: 16px;
-    max-width: 600px; /* 适配现代手机 */
+    max-width: 600px; 
   }
   body,
   .background-overlay {
@@ -343,7 +343,7 @@ body {
   }
 
   .quote {
-    bottom: 35px; /* 稍减小，但保持分隔 */
+    bottom: 35px; 
     font-size: 13px;
   }
   .footer {
@@ -355,7 +355,7 @@ body {
 /* iPhone SE 第一代 (320x568) */
 @media (max-width: 360px) and (max-height: 568px) {
   body {
-    padding-top: 7vh; /* 约 40px */
+    padding-top: 7vh;
   }
   .clock,
   .title {
@@ -410,7 +410,7 @@ body {
 /* iPhone 4S (320x480) */
 @media (max-width: 320px) and (max-height: 480px) {
   body {
-    padding-top: 5vh; /* 约 24px */
+    padding-top: 5vh;
   }
   .clock,
   .title {
@@ -464,7 +464,7 @@ body {
 /* 版权信息样式 */
 .footer {
   position: fixed;
-  bottom: 10px; /* 稍上移，确保与一言有间距 */
+  bottom: 10px; 
   width: 100%;
   color: rgba(240, 248, 255, 0.8);
   font-size: 12px;
@@ -486,56 +486,56 @@ body {
 /* 适配电话手表尺寸 (150px - 200px) */
 @media (max-width: 200px) {
   body {
-    padding-top: 10px; /* 固定顶部间距，避免 vh 不精确 */
-    height: auto; /* 允许内容超出屏幕高度 */
-    overflow-y: auto; /* 支持垂直滚动 */
-    background-size: cover; /* 确保背景适应小屏 */
+    padding-top: 10px;
+    height: auto;
+    overflow-y: auto; 
+    background-size: cover; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* 从顶部开始排列 */
+    justify-content: flex-start; 
   }
 
   .background-overlay {
-    display: none; /* 移除背景叠加层，简化视觉效果 */
+    display: none; 
   }
 
   .clock {
-    font-size: 24px; /* 小而清晰的时钟 */
+    font-size: 24px; 
     margin: 0 0 10px 0;
-    text-shadow: 0 0 4px rgba(255, 255, 255, 0.6); /* 简化阴影 */
-    opacity: 1; /* 直接可见，无动画 */
-    animation: none; /* 移除动画 */
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+    opacity: 1; 
+    animation: none;
   }
 
   .clock:hover {
-    font-size: 24px; /* 取消悬停放大 */
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.8); /* 轻微阴影增强 */
+    font-size: 24px; 
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
   }
 
   .title {
-    display: none; /* 移除标题，节省空间 */
+    display: none;
   }
 
   .search-container {
     margin: 0 0 15px 0;
     width: 100%;
-    padding: 0 5px; /* 左右微小内边距 */
+    padding: 0 5px;
   }
 
   .search-bar {
     width: 100%;
     display: flex;
-    flex-direction: column; /* 垂直排列 */
+    flex-direction: column; 
     align-items: center;
-    opacity: 1; /* 直接可见，无动画 */
-    animation: none; /* 移除动画 */
+    opacity: 1; 
+    animation: none; 
   }
 
   .engine-toggle {
     width: 32px;
     height: 32px;
-    border-radius: 16px; /* 圆形按钮 */
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(30, 60, 100, 0.3);
     margin-bottom: 5px;
@@ -548,23 +548,23 @@ body {
 
   .engine-toggle:hover {
     background: rgba(50, 90, 140, 0.5);
-    box-shadow: none; /* 移除阴影，避免占用空间 */
+    box-shadow: none;
   }
 
   .search-input {
-    width: 90%; /* 留出微小边距 */
+    width: 90%; 
     height: 28px;
     font-size: 12px;
     padding: 0 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 14px; /* 单独圆角 */
+    border-radius: 14px; 
     background: rgba(30, 60, 100, 0.3);
   }
 
   .search-input:focus {
     background: rgba(40, 80, 120, 0.4);
     border-color: rgba(173, 216, 230, 0.5);
-    box-shadow: none; /* 移除阴影 */
+    box-shadow: none; 
   }
 
   .search-button {
@@ -583,13 +583,13 @@ body {
 
   .search-button:hover {
     background: rgba(50, 90, 140, 0.5);
-    box-shadow: none; /* 移除阴影 */
+    box-shadow: none;
   }
 
   .engine-menu {
     top: 37px;
     left: 50%;
-    transform: translateX(-50%); /* 居中对齐 */
+    transform: translateX(-50%);
     width: 90px;
     max-height: 120px;
     font-size: 11px;
@@ -608,15 +608,15 @@ body {
   }
 
   .nav-buttons {
-    display: none; /* 移除导航按钮 */
+    display: none; 
   }
 
   .quote {
-    display: none; /* 移除一言 */
+    display: none; 
   }
 
   .footer {
-    position: relative; /* 改为相对定位，避免重叠 */
+    position: relative;
     margin-top: 10px;
     font-size: 9px;
     padding-bottom: 5px;
@@ -625,12 +625,12 @@ body {
 /* 适配大屏显示器 */
 @media (min-width: 2560px){
   body {
-    padding-top: 20vh; /* 约 400px */
+    padding-top: 20vh; 
   }
 
   .clock,
   .title {
-    font-size: 100px; /* 适度放大 */
+    font-size: 100px; 
     margin-bottom: 60px;
     text-shadow: 0 0 16px rgba(255, 255, 255, 0.6), 0 0 6px rgba(173, 216, 230, 0.5);
   }
@@ -645,7 +645,7 @@ body {
   }
 
   .search-bar {
-    width: 800px; /* 适度加宽 */
+    width: 800px; 
   }
 
   .search-input {
@@ -699,7 +699,7 @@ body {
 
   .nav-buttons {
     gap: 24px;
-    max-width: 1400px; /* 适度加宽 */
+    max-width: 1400px;
   }
 
   .nav-button {
